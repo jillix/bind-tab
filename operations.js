@@ -4,13 +4,12 @@ var data = [
     {
         val: "Domains",
         tabId: "domains",
-        miid: "domain_manager",
         events: {
             
             "mouseup": {
             
                 method: "show",
-                args: ["domains", "miid"]
+                args: ["domains", "domain_manager"]
             }
         }
     },
@@ -22,7 +21,7 @@ var data = [
             "mouseup": {
             
                 method: "show",
-                args: ["apps"]
+                args: ["apps", "app_manager"]
             }
         }
     },

@@ -5,22 +5,34 @@ define(["adioo/bind/repeater"], function (Repeater) {
     /*
         config = {
             
+            target: "#selector",
+            tabConainer: "#selector",
+            noTabSelected: "#selector",
             itemTag: "li",
             itemHTML: "<span></span>",
+            loadTabOnInit: {
+                    
+                tabId: "domains",
+                miid: "domain_manager"
+            },
             source: {
                 name: "getData"
             },
-            bind: [
-                {
-                    
-                }
-            ]
+            bind: [{}, {}, ...]
         }
+        
+        to create tabs that cotains a linl use bind configuration options ex.:
+        bind = [{
+            val: "Tab Title",
+            query: "a",
+            tabId: "myId",
+            itemHTML: "<a href='http://myUrl.com'/>"
+        }]
     */
     
     var Tab = {
     
-        show: function (id) {
+        show: function (id, miid) {
             
             if (this.tabs[id]) {
                 
@@ -34,18 +46,38 @@ define(["adioo/bind/repeater"], function (Repeater) {
                 
                 this.noTabSelected.style.display = "none";
                 this.tabs[id].style.display = "block";
-            }
-        },
-        
-        // TODO open new window or reload current window with new location
-        url: function (location, newWindow) {
-            
-            if (newWindow) {
                 
-                
+                if (miid) {
+                    
+                    N.mod(this.tabs[id], miid);
+                }
             }
         }
     };
+    
+    function renderTabs(err, result) {
+        
+        if (!err) {
+        
+            for (var i = 0, l = result.length; i < l; ++i) {
+                
+                var df = document.createDocumentFragment();
+                var elm = document.createElement(this.tabTag);
+                
+                elm.setAttribute("id", result[i].tabId);
+                this.tabs[result[i].tabId] = elm;
+                
+                df.appendChild(elm);
+                
+                if (this.loadTabOnInit && this.loadTabOnInit.tabId === result[i].tabId) {
+                    
+                    N.mod(elm, this.loadTabOnInit.miid);
+                }
+            }
+            
+            this.tabContainer.appendChild(df);
+        }
+    }
     
     function init(config) {
         
@@ -56,23 +88,15 @@ define(["adioo/bind/repeater"], function (Repeater) {
         tab.tabContainer = tab.dom.querySelector(tab.tabContainer);
         tab.noTabSelected = tab.dom.querySelector(tab.noTabSelected);
         
-        tab.fetch(function (err, result) {
+        if (tab.source) {
+        
+            tab.fetch(renderTabs);
+        }
+        
+        if (tab.bind) {
             
-            if (!err) {
-            
-                for (var i = 0, l = result.length; i < l; ++i) {
-                    
-                    var elm = document.createElement(tab.tabTag);
-                    elm.setAttribute("id", result[i].tabId);
-                    
-                    tab.tabs[result[i].tabId] = elm;
-                    
-                    tab.tabContainer.appendChild(elm);
-                    
-                    N.mod(elm, result[i].miid);
-                }
-            }
-        });
+            tab.render(tab.bind);
+        }
         
         return tab;
     }
