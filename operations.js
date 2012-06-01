@@ -33,7 +33,7 @@ var data = [
             "mouseup": {
             
                 method: "show",
-                args: ["users"]
+                args: ["users", "user_manager"]
             }
         }
     },
@@ -45,7 +45,7 @@ var data = [
             "mouseup": {
             
                 method: "show",
-                args: ["roles"]
+                args: ["roles", "role_manager"]
             }
         }
     },
@@ -57,7 +57,7 @@ var data = [
             "mouseup": {
             
                 method: "show",
-                args: ["modules"]
+                args: ["modules", "module_manager"]
             }
         }
     },
@@ -69,7 +69,7 @@ var data = [
             "mouseup": {
             
                 method: "show",
-                args: ["operations"]
+                args: ["operations", "operation_manager"]
             }
         }
     }

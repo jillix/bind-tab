@@ -21,7 +21,7 @@ define(["adioo/bind/repeater"], function (Repeater) {
             bind: [{}, {}, ...]
         }
         
-        to create tabs that cotains a linl use bind configuration options ex.:
+        to create tabs that cotains a link use bind configuration options ex.:
         bind = [{
             val: "Tab Title",
             query: "a",
@@ -29,6 +29,7 @@ define(["adioo/bind/repeater"], function (Repeater) {
             itemHTML: "<a href='http://myUrl.com'/>"
         }]
     */
+    var modCache = {};
     
     var Tab = {
     
@@ -47,7 +48,9 @@ define(["adioo/bind/repeater"], function (Repeater) {
                 this.noTabSelected.style.display = "none";
                 this.tabs[id].style.display = "block";
                 
-                if (miid) {
+                if (miid && !modCache[miid]) {
+                    
+                    modCache[miid] = 1;
                     
                     N.mod(this.tabs[id], miid);
                 }
@@ -58,10 +61,11 @@ define(["adioo/bind/repeater"], function (Repeater) {
     function renderTabs(err, result) {
         
         if (!err) {
-        
+            
+            var df = document.createDocumentFragment();
+            
             for (var i = 0, l = result.length; i < l; ++i) {
                 
-                var df = document.createDocumentFragment();
                 var elm = document.createElement(this.tabTag);
                 
                 elm.setAttribute("id", result[i].tabId);
