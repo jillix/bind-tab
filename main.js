@@ -18,7 +18,7 @@ define(["adioo/bind/repeater"], function (Repeater) {
             source: {
                 name: "getData"
             },
-            bind: [{}, {}, ...]
+            data: [{}, {}, ...]
         }
         
         to create tabs that cotains a link use bind configuration options ex.:
@@ -84,13 +84,13 @@ define(["adioo/bind/repeater"], function (Repeater) {
     }
     
     function init(config) {
-        
-        var tab = N.clone(Tab, Repeater(this), config);
+    
+        var tab = N.ext(Tab, Repeater(this), config);
         
         tab.tabs = {};
-        tab.target = tab.dom.querySelector(tab.target);
-        tab.tabContainer = tab.dom.querySelector(tab.tabContainer);
-        tab.noTabSelected = tab.dom.querySelector(tab.noTabSelected);
+        tab.target = this.dom.querySelector(config.target);
+        tab.tabContainer = this.dom.querySelector(config.tabContainer);
+        tab.noTabSelected = this.dom.querySelector(config.noTabSelected);
         
         if (tab.source) {
         
@@ -99,7 +99,7 @@ define(["adioo/bind/repeater"], function (Repeater) {
         
         if (tab.bind) {
             
-            tab.render(tab.bind);
+            tab.render(tab.data);
         }
         
         return tab;
