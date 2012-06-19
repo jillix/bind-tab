@@ -3,9 +3,8 @@
 define(["adioo/bind/repeater"], function (Repeater) {
     
     /*
-        config = {
+        tabConf = {
             
-            target: "#selector",
             tabConainer: "#selector",
             noTabSelected: "#selector",
             itemTag: "li",
@@ -35,24 +34,24 @@ define(["adioo/bind/repeater"], function (Repeater) {
     
         show: function (id, miid) {
             
-            if (this.tabs[id]) {
+            if (this.conf.tabs[id]) {
                 
-                for (var tab in this.tabs) {
+                for (var tab in this.conf.tabs) {
                     
                     if (tab !== id) {
                     
-                        this.tabs[tab].style.display = "none";
+                        this.conf.tabs[tab].style.display = "none";
                     }
                 }
                 
-                this.noTabSelected.style.display = "none";
-                this.tabs[id].style.display = "block";
+                this.conf.noTabSelected.style.display = "none";
+                this.conf.tabs[id].style.display = "block";
                 
                 if (miid && !modCache[miid]) {
                     
                     modCache[miid] = 1;
                     
-                    N.mod(this.tabs[id], miid);
+                    N.mod(this.conf.tabs[id], miid);
                 }
             }
         }
@@ -66,42 +65,43 @@ define(["adioo/bind/repeater"], function (Repeater) {
             
             for (var i = 0, l = result.length; i < l; ++i) {
                 
-                var elm = document.createElement(this.tabTag);
+                var elm = document.createElement(this.conf.tabTag);
                 
                 elm.setAttribute("id", result[i].tabId);
-                this.tabs[result[i].tabId] = elm;
+                this.conf.tabs[result[i].tabId] = elm;
                 
                 df.appendChild(elm);
                 
-                if (this.loadTabOnInit && this.loadTabOnInit.tabId === result[i].tabId) {
+                if (this.conf.loadTabOnInit && this.conf.loadTabOnInit.tabId === result[i].tabId) {
                     
-                    N.mod(elm, this.loadTabOnInit.miid);
+                    N.mod(elm, this.conf.loadTabOnInit.miid);
                 }
             }
             
-            this.tabContainer.appendChild(df);
+            this.conf.tabContainer.appendChild(df);
         }
     }
     
     function init(config) {
-    
-        var tab = N.ext(Tab, Repeater(this), config);
         
-        tab.tabs = {};
-        tab.target = this.dom.querySelector(config.target);
-        tab.tabContainer = this.dom.querySelector(config.tabContainer);
-        tab.noTabSelected = this.dom.querySelector(config.noTabSelected);
+        this.conf = config;
         
-        if (tab.source) {
+        var tab = N.ext(Tab, Repeater(this));
+        
+        tab.conf.tabs = {};
+        tab.conf.tabContainer = this.dom.querySelector(tab.conf.tabContainer);
+        tab.conf.noTabSelected = this.dom.querySelector(tab.conf.noTabSelected);
+        
+        if (tab.conf.source) {
         
             tab.fetch(renderTabs);
         }
         
-        if (tab.bind) {
+        if (tab.conf.data) {
             
-            tab.render(tab.data);
+            tab.render(tab.conf.data);
         }
-        
+        console.log(tab);
         return tab;
     }
     
