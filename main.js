@@ -83,26 +83,7 @@ define(["adioo/bind/repeater"], function (Repeater) {
     }
     
     function init(config) {
-        
-        this.conf = config;
-        
-        var tab = N.ext(Tab, Repeater(this));
-        
-        tab.conf.tabs = {};
-        tab.conf.tabContainer = this.dom.querySelector(tab.conf.tabContainer);
-        tab.conf.noTabSelected = this.dom.querySelector(tab.conf.noTabSelected);
-        
-        if (tab.conf.source) {
-        
-            tab.fetch(renderTabs);
-        }
-        
-        if (tab.conf.data) {
-            
-            tab.render(tab.conf.data);
-        }
-        console.log(tab);
-        return tab;
+        var self = this;
     }
     
     return init;
