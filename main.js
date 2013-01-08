@@ -1,6 +1,6 @@
 "use strict";
 
-define(["adioo/bind/repeater"], function (Repeater) {
+define([], function () {
     
     /*
         tabConf = {
