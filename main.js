@@ -15,6 +15,10 @@ define([
         
         var container = $(config.container, self.dom);
         
+        // On page load
+        M(config.container, config.first);
+        
+        // On tab click
         $(config.tabs, self.dom).on('click', function() {
             $(config.tabs).removeClass(config.options.classes.selected);
             $(config.container).html("");
@@ -28,6 +32,7 @@ define([
         config.tabs = ".nav-tabs li";
         config.options = {};
         config.options.classes = { selected: "active" };
+        config.first = "tabContent1";
     }
     
     return init;
