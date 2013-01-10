@@ -16,7 +16,7 @@ define([
         var container = $(config.container, self.dom);
         
         // On page load
-        M(config.container, config.first);
+        M(config.container, config.options.first);
         
         // On tab click
         $(config.tabs, self.dom).on('click', function() {
@@ -32,7 +32,7 @@ define([
         config.tabs = ".nav-tabs li";
         config.options = {};
         config.options.classes = { selected: "active" };
-        config.first = "tabContent1";
+        config.options.first = "tabContent1";
     }
     
     return init;
