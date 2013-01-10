@@ -10,7 +10,7 @@ define([
         self = this;
         
         if(config.sample) {
-            buildSampleConfiguration();
+            buildSampleConfiguration(config);
         }
         
         var container = $(config.container, self.dom);
