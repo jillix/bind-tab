@@ -6,10 +6,12 @@ define([
     function init(config) {
         var self = this;
         
-        config.container = "#content";
-        config.tabs = ".nav-tabs li";
-        config.options = {};
-        config.options.classes = { selected: "active" }
+        if(sample) {
+            config.container = "#content";
+            config.tabs = ".nav-tabs li";
+            config.options = {};
+            config.options.classes = { selected: "active" }
+        }
         
         var container = $(config.container, self.dom);
         
