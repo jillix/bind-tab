@@ -18,7 +18,7 @@ define([
         $(config.tabs, self.dom).on('click', function() {
             $(config.tabs).removeClass(config.options.classes.selected);
             $(config.container).html("");
-            $(this).attr("class", config.options.classes.selected);
+            $(this).addClass(config.options.classes.selected);
             M(config.container, $(this).attr("data-miid"));
         });
     }
