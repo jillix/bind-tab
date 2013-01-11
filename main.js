@@ -1,8 +1,6 @@
 "use strict";
 
-define([
-    "/jquery.js"
-], function () {
+define(["/jquery.js"], function () {
 
     var self;
 
@@ -17,12 +15,14 @@ define([
         
         // On tab click
         $(config.tabs, self.dom).on('click', function() {
+
             // Change the hash in URL
             if (config.options.hash) {
                 window.location.hash = $(this).attr('data-hash');
-                return false;
+            } else {
+                activateTab(config, $(this));
             }
-            activateTab(config, $(this));
+
             return false;
         });
         
@@ -47,6 +47,18 @@ define([
     }
     
     function activateTab(config, tab) {
+
+        if (!tab.length) {
+            return;
+        }
+
+        // TODO we cannot rely that the selected class exists and based on this
+        // to test the current tab. The current miid should be buffered
+        var active = $(config.tabs).parent().find("." + config.options.classes.selected);
+        if (tab.attr("data-miid") === active.attr("data-miid")) {
+            return;
+        }
+
         // Removes the active class
         $(config.tabs).removeClass(config.options.classes.selected);
             
