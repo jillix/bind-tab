@@ -22,7 +22,9 @@ define([
             // Change the hash in URL
             if (config.options.hash) {
                 window.location.hash = $(this).attr('data-hash');
+                return;
             }
+            activateTab(config, $(this));
             return false;
         });
         
