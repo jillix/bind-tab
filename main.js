@@ -15,8 +15,6 @@ define([
         
         var container = $(config.container, self.dom);
         
-        
-        
         // On tab click
         $(config.tabs, self.dom).on('click', function() {
             // Change the hash in URL
@@ -30,7 +28,6 @@ define([
         
         // hashchange handler
         $(window).on('hashchange', function () {
-            console.log("asdausdg");
             var tab = $("[data-hash=" + window.location.hash.substring(1) +  "]");
             activateTab(config, tab);
         })
