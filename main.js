@@ -15,28 +15,36 @@ define([
         
         var container = $(config.container, self.dom);
         
-        // Load first content
+        
+        
+        // On tab click
+        $(config.tabs, self.dom).on('click', function() {
+            // Change the hash in URL
+            if (config.options.hash) {
+                window.location.hash = $(this).attr('data-hash');
+            }
+            return false;
+        });
+        
+        // hashchange handler
+        $(window).on('hashchange', function () {
+            console.log("asdausdg");
+            var tab = $("[data-hash=" + window.location.hash.substring(1) +  "]");
+            activateTab(config, tab);
+        })
+        
+        // Load first content        
         if((config.options.first) && (!window.location.hash)) {
             M(config.container, config.options.first);
+            return;
         }
-
+        
         // Load the right content for hash
         if((window.location.hash) && (config.options.hash)) {
             var tab = $("[data-hash=" + window.location.hash.substring(1) +  "]");
             activateTab(config, tab);
+            return;
         }
-        
-        // On tab click
-        $(config.tabs, self.dom).on('click', function() {
-            activateTab(config, $(this));
-            
-            // Adds hash to URL
-            if (config.options.hash) {
-                window.location.hash = $(this).attr('data-hash');
-            }
-            
-            return false;
-        });
     }
     
     function activateTab(config, tab) {
