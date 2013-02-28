@@ -11,6 +11,10 @@ define(["/jquery.js"], function () {
             buildSampleConfiguration(config);
         }
         
+        if (typeof this.onload === 'function') {
+            this.onload();
+        }
+        
         var container = $(config.container, self.dom);
         
         // On tab click
