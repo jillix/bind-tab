@@ -1,4 +1,3 @@
-var send = require(CONFIG.root + "/core/send.js").send;
 var data = [
     
     {
@@ -35,5 +34,5 @@ var data = [
 
 exports.getData = function(link) {
     
-    send.ok(link.res, data);
+    link.send(200, data);
 };
