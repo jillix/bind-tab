@@ -22,6 +22,10 @@ define(["/jquery.js"], function () {
 
             // Change the hash in URL
             if (config.options.hash) {
+                if (!$(this).attr("data-hash")) {
+                    return;
+                }
+                
                 window.location.hash = $(this).attr('data-hash');
             } else {
                 activateTab(config, $(this));
