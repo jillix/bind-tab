@@ -2,10 +2,8 @@
     "source": "github",
     "owner": "adioo",
     "name": "bind-tab",
-    "main": "main.js",
-    "dependencies": {
-        "github/adioo/bind": "v0.2.0",
-        "github/adioo/events": "v0.1.0"
-    },
-    "operations": []
+    "dependencies": [
+        "/main.js",
+        "http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"
+    ]
 }
