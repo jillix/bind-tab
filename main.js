@@ -9,10 +9,6 @@ module.exports = function (config) {
         buildSampleConfiguration(config);
     }
 
-    if (typeof this.onload === 'function') {
-        this.onload();
-    }
-
     var container = $(config.container, self.dom);
 
     // On tab click
@@ -49,6 +45,10 @@ module.exports = function (config) {
         var tab = $('[data-hash=' + window.location.hash.substring(1) +  ']');
         activateTab(config, tab);
         return;
+    }
+
+    if (typeof window[config.onInitEnd] === 'function') {
+        window[config.onInitEnd].apply(self);
     }
 }
 
