@@ -5,10 +5,6 @@ var self;
 module.exports = function (config) {
     self = this;
 
-    if (config.sample) {
-        buildSampleConfiguration(config);
-    }
-
     var container = $(config.container, self.dom);
 
     // On tab click
@@ -77,13 +73,3 @@ function activateTab(config, tab) {
     // Sets the content in container
     M(config.container, tab.attr('data-miid'));
 }
-
-function buildSampleConfiguration(config) {
-    config.container = '#content';
-    config.tabs = '.nav-tabs li';
-    config.options = {};
-    config.options.classes = { selected: 'active' };
-    config.options.first = 'tabContent1';
-    config.options.hash = true;
-}
-

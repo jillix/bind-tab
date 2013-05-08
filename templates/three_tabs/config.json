@@ -1,0 +1,13 @@
+{
+    "container": "#content",
+    "tabs": ".nav-tabs li",
+    "options": {
+        "classes": { 
+            "selected": "active" 
+        }
+        "first": "tabContent1",
+        "hash": true
+    },
+    "html": "tabs.html",
+    "css": ["//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css"]
+}
