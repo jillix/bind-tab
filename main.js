@@ -38,7 +38,9 @@ module.exports = function (config) {
 
     // Load first content
     if ((config.options.first) && (!window.location.hash)) {
-        M(config.container, config.options.first);
+        M(config.container, config.options.first, function () {
+            self.emit('tabActivated', config.options.first);
+        });
         return;
     }
 
@@ -80,6 +82,6 @@ function activateTab(config, tab) {
 
     // Sets the content in container
     M(config.container, miid, function () {
-        self.emit('tabChanged', miid);
+        self.emit('tabActivated', miid);
     });
 }
