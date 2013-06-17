@@ -2,8 +2,14 @@
 
 var self;
 
+var Bind = require('github/jillix/bind');
+var Events = require('github/jillix/events');
+
 module.exports = function (config) {
+
     self = this;
+
+    Events.call(self, config);
 
     var container = $(config.container, self.dom);
 
@@ -30,7 +36,7 @@ module.exports = function (config) {
         activateTab(config, tab);
     })
 
-    // Load first content        
+    // Load first content
     if ((config.options.first) && (!window.location.hash)) {
         M(config.container, config.options.first);
         return;
@@ -70,6 +76,10 @@ function activateTab(config, tab) {
     // Adds active class
     tab.addClass(config.options.classes.selected);
 
+    var miid = tab.attr('data-miid');
+
     // Sets the content in container
-    M(config.container, tab.attr('data-miid'));
+    M(config.container, miid, function () {
+        self.emit('tabChanged', miid);
+    });
 }
