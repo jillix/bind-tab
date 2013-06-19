@@ -71,23 +71,24 @@ function activateTab(config, tab) {
         return;
     }
 
+    var active = $(config.tabs, self.dom).parent().find('.' + config.options.classes.selected);
+    // Removes the active class
+    $(config.tabs, self.dom).removeClass(config.options.classes.selected);
+    // Adds active class
+    tab.addClass(config.options.classes.selected);
+
     // TODO we cannot rely that the selected class exists and based on this
     // to test the current tab. The current miid should be buffered
-    var active = $(config.tabs, self.dom).parent().find('.' + config.options.classes.selected);
     if (tab.attr('data-miid') === active.attr('data-miid')) {
         return;
     }
 
-    // Removes the active class
-    $(config.tabs, self.dom).removeClass(config.options.classes.selected);
 
     // Removes the content of container if reuse is false or undefined
     if (!config.options.reuse) {
         $(config.container, self.dom).html('');
     }
 
-    // Adds active class
-    tab.addClass(config.options.classes.selected);
 
     var miid = tab.attr('data-miid');
 
