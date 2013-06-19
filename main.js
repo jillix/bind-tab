@@ -13,6 +13,10 @@ module.exports = function (config) {
 
     var container = $(config.container, self.dom);
 
+    if (config.options.reuse) {
+        self.tabs = {};
+    }
+
     // On tab click
     $(config.tabs, self.dom).on('click', function() {
 
@@ -32,7 +36,7 @@ module.exports = function (config) {
 
     // hashchange handler
     $(window).on('hashchange', function () {
-        var tab = $('[data-hash=' + window.location.hash.substring(1) +  ']');
+        var tab = $('[data-hash=' + window.location.hash.substring(1) +  ']', self.dom);
         activateTab(config, tab);
     })
 
@@ -40,13 +44,17 @@ module.exports = function (config) {
     if ((config.options.first) && (!window.location.hash)) {
         M(config.container, config.options.first, function () {
             self.emit('tabActivated', config.options.first);
+
+            if (config.options.reuse) {
+                self.tabs[config.options.first] = true;
+            }
         });
         return;
     }
 
     // Load the right content for hash
     if ((window.location.hash) && (config.options.hash)) {
-        var tab = $('[data-hash=' + window.location.hash.substring(1) +  ']');
+        var tab = $('[data-hash=' + window.location.hash.substring(1) +  ']', self.dom);
         activateTab(config, tab);
         return;
     }
@@ -64,16 +72,18 @@ function activateTab(config, tab) {
 
     // TODO we cannot rely that the selected class exists and based on this
     // to test the current tab. The current miid should be buffered
-    var active = $(config.tabs).parent().find('.' + config.options.classes.selected);
+    var active = $(config.tabs, self.dom).parent().find('.' + config.options.classes.selected);
     if (tab.attr('data-miid') === active.attr('data-miid')) {
         return;
     }
 
     // Removes the active class
-    $(config.tabs).removeClass(config.options.classes.selected);
+    $(config.tabs, self.dom).removeClass(config.options.classes.selected);
 
-    // Removes the content of container
-    $(config.container).html('');
+    // Removes the content of container if reuse is false or undefined
+    if (!config.options.reuse) {
+        $(config.container, self.dom).html('');
+    }
 
     // Adds active class
     tab.addClass(config.options.classes.selected);
@@ -81,7 +91,29 @@ function activateTab(config, tab) {
     var miid = tab.attr('data-miid');
 
     // Sets the content in container
-    M(config.container, miid, function () {
-        self.emit('tabActivated', miid);
-    });
+    // resue is true
+    if (config.options.reuse) {
+
+        // miid was NOT loaded
+        if (!self.tabs[miid]) {
+            M(config.container, miid, function () {
+                self.emit('tabActivated', miid);
+
+                if (config.options.reuse) {
+                    self.tabs[miid] = true;
+                }
+            });
+        }
+        // miid was already loaded, show it!
+        else {
+            $(config.container).find("*").hide();
+            $("#" + miid).show();
+        }
+    }
+    // resue is false
+    else {
+        M(config.container, miid, function () {
+            self.emit('tabActivated', miid);
+        });
+    }
 }
