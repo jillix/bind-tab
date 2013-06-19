@@ -10,6 +10,7 @@ module.exports = function (config) {
     self = this;
 
     Events.call(self, config);
+    config = processConfig(config);
 
     var container = $(config.container, self.dom);
 
@@ -91,7 +92,7 @@ function activateTab(config, tab) {
     var miid = tab.attr('data-miid');
 
     // Sets the content in container
-    // resue is true
+    // reuse is true
     if (config.options.reuse) {
 
         // miid was NOT loaded
@@ -99,21 +100,29 @@ function activateTab(config, tab) {
             M(config.container, miid, function () {
                 self.emit('tabActivated', miid);
 
-                if (config.options.reuse) {
-                    self.tabs[miid] = true;
-                }
+                self.tabs[miid] = true;
+                $(config.container).children().hide();
+                $("#" + miid).show();
             });
         }
         // miid was already loaded, show it!
         else {
-            $(config.container).find("*").hide();
+            $(config.container).children().hide();
             $("#" + miid).show();
         }
     }
-    // resue is false
+    // reuse is false
     else {
         M(config.container, miid, function () {
             self.emit('tabActivated', miid);
         });
     }
+}
+
+function processConfig (config) {
+
+    config.options = config.options || {};
+    config.options.classes = config.options.classes || {};
+
+    return config;
 }
