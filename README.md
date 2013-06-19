@@ -17,8 +17,8 @@ Besides the standard Mono module configuration options ('html', 'css', 'scripts'
             "selected": "CSS class"
         },
         "first": "miid",
-        "hash": true or false
-        "resue": true or false
+        "hash": true or false,
+        "reuse": true or false
     }
 }
 ```
@@ -32,7 +32,7 @@ where:
   * **selected**: a string that represents a CSS class (e.g.: `active`)
   * **first**: miid that you want to load first (e.g.: `home_layout`)
   * **hash**: bool value. When it is `true` there will appear hash links (also, the tabs have to contain `data-hash` attributes)
-  * **resue**: bool value. When it is `true` the miids are loaded but never removed. They will be shown/hidden by the module.
+  * **reuse**: bool value. When it is `true` the miids are loaded but never removed. They will be shown/hidden by the module.
 
 HTML side
 ---------
