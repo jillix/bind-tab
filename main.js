@@ -96,7 +96,7 @@ function activateTab(config, options) {
 
     // Removes the content of container if reuse is false or undefined
     if (!config.options.reuse) {
-        $(config.container, self.dom).html('');
+        $(config.container).html('');
     }
 
     var miid = tab.attr('data-miid');
