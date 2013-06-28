@@ -119,6 +119,7 @@ function activateTab(config, options) {
         else {
             $(config.container).children().hide();
             $("#" + miid).show();
+            self.emit('tabActivated', config.options.first);
         }
     }
     // reuse is false
