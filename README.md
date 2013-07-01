@@ -49,7 +49,7 @@ Each tab item has to contain `data-miid` and `data-hash` atributes.
 Events
 ------
 
-The module emit the following events:
+The module emits the following events:
 <table>
    <thead>
      <tr>
