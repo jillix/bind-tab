@@ -68,3 +68,27 @@ The module emits the following events:
      </tr>
    </tbody>
  </table>
+
+# Changelog
+
+### dev
+Nothing yet.
+
+### v0.1.5
+ - Implemented `data-title` option. The window title will be set if `data-title` attribute is provided (Issue #2)
+ - Fixed the problem with `tabActivated`: the module will wait until the miid loaded will emit `ready`.
+ - Replaced simple quotes with double quotes
+
+### v0.1.4
+ - The empty of container was fixed.
+ - Upgrated to Events version v0.1.1
+
+### v0.1.3
+ - `reuse` option was implemented
+
+### v0.1.2
+ - `tabActivated` event was implemented
+
+### v0.1.1
+ - Events and Bind were added in dependencies of module.
+ - Process config function was removed

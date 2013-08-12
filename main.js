@@ -1,16 +1,24 @@
-'use strict';
+"use strict";
 
 var self;
+var config;
 
-var Bind = require('github/jillix/bind');
-var Events = require('github/jillix/events');
+var Bind = require("github/jillix/bind");
+var Events = require("github/jillix/events");
+var EmitEvents = {
+    tabActivated: function (miid) {
+        self.onready(miid, function() {
+            self.emit("tabActivated", miid);
+        });
+    }
+};
 
-module.exports = function (config) {
+module.exports = function (conf) {
 
     self = this;
 
-    Events.call(self, config);
-    config = processConfig(config);
+    Events.call(self, conf);
+    config = processConfig(conf);
 
     var container = $(config.container, self.dom);
 
@@ -19,15 +27,15 @@ module.exports = function (config) {
     }
 
     // On tab click
-    $(config.tabs, self.dom).on('click', function() {
+    $(config.tabs, self.dom).on("click", function() {
 
         // Change the hash in URL
         if (config.options.hash) {
-            if (!$(this).attr('data-hash')) {
+            if (!$(this).attr("data-hash")) {
                 return;
             }
 
-            window.location.hash = $(this).attr('data-hash');
+            window.location.hash = $(this).attr("data-hash");
         } else {
             activateTab(config, $(this));
         }
@@ -36,15 +44,16 @@ module.exports = function (config) {
     });
 
     // hashchange handler
-    $(window).on('hashchange', function () {
-        var tab = $('[data-hash=' + window.location.hash.substring(1) +  ']', self.dom);
+    $(window).on("hashchange", function () {
+        var tab = $("[data-hash=" + window.location.hash.substring(1) +  "]", self.dom);
         activateTab(config, tab);
     })
 
     // Load first content
     if ((config.options.first) && (!window.location.hash)) {
         M(config.container, config.options.first, function () {
-            self.emit('tabActivated', config.options.first);
+
+            EmitEvents.tabActivated(config.options.first);
 
             if (config.options.reuse) {
                 self.tabs[config.options.first] = true;
@@ -55,7 +64,7 @@ module.exports = function (config) {
 
     // Load the right content for hash
     if ((window.location.hash) && (config.options.hash)) {
-        var tab = $('[data-hash=' + window.location.hash.substring(1) +  ']', self.dom);
+        var tab = $("[data-hash=" + window.location.hash.substring(1) +  "]", self.dom);
 
         var options = {
             tab: tab,
@@ -66,7 +75,7 @@ module.exports = function (config) {
         return;
     }
 
-    if (typeof window[config.onInitEnd] === 'function') {
+    if (typeof window[config.onInitEnd] === "function") {
         window[config.onInitEnd].apply(self);
     }
 }
@@ -80,7 +89,7 @@ function activateTab(config, options) {
     }
 
     // gets the active tab
-    var active = $(config.tabs, self.dom).parent().find('.' + config.options.classes.selected);
+    var active = $(config.tabs, self.dom).parent().find("." + config.options.classes.selected);
 
     // Removes the active class
     $(config.tabs, self.dom).removeClass(config.options.classes.selected);
@@ -90,16 +99,22 @@ function activateTab(config, options) {
 
     // TODO we cannot rely that the selected class exists and based on this
     // to test the current tab. The current miid should be buffered
-    if (tab.attr('data-miid') === active.attr('data-miid') && !options.firstLoad) {
+    if (tab.attr("data-miid") === active.attr("data-miid") && !options.firstLoad) {
         return;
     }
 
-    // Removes the content of container if reuse is false or undefined
-    if (!config.options.reuse) {
-        $(config.container).html('');
+    // set title
+    var newTitle = active.attr("data-title");
+    if (newTitle) {
+        window.title = newTitle;
     }
 
-    var miid = tab.attr('data-miid');
+    // Remove the content of container if reuse is false or undefined
+    if (!config.options.reuse) {
+        $(config.container).html("");
+    }
+
+    var miid = tab.attr("data-miid");
 
     // Sets the content in container
     // reuse is true
@@ -108,7 +123,7 @@ function activateTab(config, options) {
         // miid was NOT loaded
         if (!self.tabs[miid]) {
             M(config.container, miid, function () {
-                self.emit('tabActivated', miid);
+                EmitEvents.tabActivated(miid);
 
                 self.tabs[miid] = true;
                 $(config.container).children().hide();
@@ -119,13 +134,13 @@ function activateTab(config, options) {
         else {
             $(config.container).children().hide();
             $("#" + miid).show();
-            self.emit('tabActivated', config.options.first);
+            EmitEvents.tabActivated(config.options.first);
         }
     }
     // reuse is false
     else {
         M(config.container, miid, function () {
-            self.emit('tabActivated', miid);
+            EmitEvents.tabActivated(miid);
         });
     }
 }
