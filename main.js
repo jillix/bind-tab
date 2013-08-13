@@ -7,7 +7,7 @@ var Bind = require("github/jillix/bind");
 var Events = require("github/jillix/events");
 var EmitEvents = {
     tabActivated: function (miid) {
-        self.onready(miid, function() {
+        self.on("ready", miid, function() {
             self.emit("tabActivated", miid);
         });
     }
