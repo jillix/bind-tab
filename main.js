@@ -84,6 +84,10 @@ function activateTab(config, options) {
 
     var tab = options.tab || options;
 
+    if (typeof tab === "function") {
+        tab = options;
+    }
+
     if (!tab.length) {
         return;
     }
@@ -128,6 +132,7 @@ function activateTab(config, options) {
                 self.tabs[miid] = true;
                 $(config.container).children().hide();
                 $("#" + miid).show();
+                $("[data-miid='" + miid + "']").click();
             });
         }
         // miid was already loaded, show it!

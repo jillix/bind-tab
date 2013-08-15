@@ -73,6 +73,7 @@ The module emits the following events:
 
 ### dev
  - Updated the module to the new version of the client script (M.js): `.onready` is deprecated.
+ - Fixed the problem with the redirection: click on the `[data-miid]` again, after the miid was loaded.
 
 ### v0.1.5
  - Implemented `data-title` option. The window title will be set if `data-title` attribute is provided (Issue #2)
