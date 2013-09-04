@@ -139,7 +139,7 @@ function activateTab(config, options) {
         else {
             $(config.container).children().hide();
             $("#" + miid).show();
-            EmitEvents.tabActivated(config.options.first);
+            EmitEvents.tabActivated(miid);
         }
     }
     // reuse is false
