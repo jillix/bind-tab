@@ -75,6 +75,8 @@ The module emits the following events:
  - Updated the module to the new version of the client script (M.js): `.onready` is deprecated.
  - Fixed the problem with the redirection: click on the `[data-miid]` again, after the miid was loaded.
  - Fixed wrong miid name emit (`miid` instead of `first`)
+ - Updated the module to Bind v0.1.4 and Events v0.1.3.
+ - Implemented transitions between tabs.
 
 ### v0.1.5
  - Implemented `data-title` option. The window title will be set if `data-title` attribute is provided (Issue #2)
