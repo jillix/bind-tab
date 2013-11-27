@@ -72,6 +72,9 @@ The module emits the following events:
 # Changelog
 
 ### dev
+ - New features and fixes go here.
+
+### v0.1.6
  - Updated the module to the new version of the client script (M.js): `.onready` is deprecated.
  - Fixed the problem with the redirection: click on the `[data-miid]` again, after the miid was loaded.
  - Fixed wrong miid name emit (`miid` instead of `first`)
