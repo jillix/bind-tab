@@ -73,6 +73,7 @@ The module emits the following events:
 
 ### dev
  - New features and fixes go here.
+ - After tab change click on the **first** miid item from the menu.
 
 ### v0.1.6
  - Updated the module to the new version of the client script (M.js): `.onready` is deprecated.
