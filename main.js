@@ -132,7 +132,7 @@ function activateTab(config, options) {
                 self.tabs[miid] = true;
                 $(config.container).children().hide(config.options.transition);
                 $("#" + miid).show(config.options.transition);
-                $("[data-miid='" + miid + "']").first().click();
+                tab.constructor === jQuery ? tab.click() : "";
             });
         }
         // miid was already loaded, show it!
