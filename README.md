@@ -77,6 +77,7 @@ The module emits the following events:
  - Fixed wrong miid name emit (`miid` instead of `first`)
  - Updated the module to Bind v0.1.4 and Events v0.1.3.
  - Implemented transitions between tabs.
+ - Updated Bind and Events to the latest releases.
 
 ### v0.1.5
  - Implemented `data-title` option. The window title will be set if `data-title` attribute is provided (Issue #2)
