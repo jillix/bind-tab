@@ -59,11 +59,9 @@ module.exports = function (conf) {
                 self.tabs[config.options.first] = true;
             }
         });
-        return;
     }
-
     // Load the right content for hash
-    if ((window.location.hash) && (config.options.hash)) {
+    else if ((window.location.hash) && (config.options.hash)) {
         var tab = $("[data-hash=" + window.location.hash.substring(1) +  "]", self.dom);
 
         var options = {
@@ -72,7 +70,6 @@ module.exports = function (conf) {
         };
 
         activateTab(config, options);
-        return;
     }
 
     if (typeof window[config.onInitEnd] === "function") {
@@ -157,3 +154,4 @@ function processConfig (config) {
 
     return config;
 }
+
