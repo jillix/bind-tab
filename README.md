@@ -74,6 +74,10 @@ The module emits the following events:
 ### dev
  - New features and fixes go here.
 
+### v0.1.8
+ - Removed jQuery reference in dependencies (it is server by bind)
+ - Updated to Events v0.1.8
+
 ### v0.1.7
  - After tab change click on the activated miid item from the menu.
  - Fixed `onInitEnd` that in some cases was never reached
