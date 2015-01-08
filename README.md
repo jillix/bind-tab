@@ -74,9 +74,14 @@ The module emits the following events:
 ### dev
  - New features and fixes go here.
 
+### V0.2.0
+ - Upgraded Events to `v0.3.0` and Bind to `v0.3.1`
+ - Using now also Bind module
+ - Emitting `ready` when the initialization is done
+
 ### v0.1.8
  - Removed jQuery reference in dependencies (it is server by bind)
- - Updated to Events v0.1.8
+ - Updated to Events `v0.1.8`
 
 ### v0.1.7
  - After tab change click on the activated miid item from the menu.
