@@ -16,9 +16,9 @@ var EmitEvents = {
 module.exports = function (conf) {
 
     self = this;
+    config = processConfig(conf);
 
     Events.call(self, conf);
-    config = processConfig(conf);
 
     var container = $(config.container, self.dom);
 
@@ -75,6 +75,15 @@ module.exports = function (conf) {
     if (typeof window[config.onInitEnd] === "function") {
         window[config.onInitEnd].apply(self);
     }
+
+    // run the binds
+    if (config.binds) {
+        for (var i = 0; i < config.binds.length; ++i) {
+            Bind.call(self, config.binds[i]);
+        }
+    }
+
+    self.emit("ready");
 }
 
 function activateTab(config, options) {
