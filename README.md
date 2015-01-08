@@ -74,7 +74,7 @@ The module emits the following events:
 ### dev
  - New features and fixes go here.
 
-### V0.2.0
+### V0.2.1
  - Upgraded Events to `v0.3.0` and Bind to `v0.3.1`
  - Using now also Bind module
  - Emitting `ready` when the initialization is done
